@@ -1,0 +1,14 @@
+diff -up ../st-0.8.4/x.c ./x.c
+--- ../st-0.8.4/x.c	2020-06-19 12:29:45.000000000 +0300
++++ ./x.c	2021-06-25 00:09:43.624755921 +0300
+@@ -1380,10 +1380,6 @@ xdrawglyphfontspecs(const XftGlyphFontSp
+ 		bg = &dc.col[base.bg];
+ 	}
+ 
+-	/* Change basic system colors [0-7] to bright system colors [8-15] */
+-	if ((base.mode & ATTR_BOLD_FAINT) == ATTR_BOLD && BETWEEN(base.fg, 0, 7))
+-		fg = &dc.col[base.fg + 8];
+-
+ 	if (IS_SET(MODE_REVERSE)) {
+ 		if (fg == &dc.col[defaultfg]) {
+ 			fg = &dc.col[defaultbg];

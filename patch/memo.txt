@@ -1,0 +1,5 @@
+# st-common_st.h.diff contains common st.h hunks from patches:
+st-externalpipe-0.8.4.diff
+st-scrollback-20210507-4536f46.diff
+st-boxdraw_v2-0.8.3.diff
+st-focus-20200731-43a395a.diff
