@@ -6,6 +6,8 @@ st \- simple terminal
 .RB [ \-aiv ]
 .RB [ \-c
 .IR class ]
+.RB [ \-d
+.IR path ]
 .RB [ \-f
 .IR font ]
 .RB [ \-g
@@ -22,6 +24,8 @@ st \- simple terminal
 .IR line ]
 .RB [ \-w
 .IR windowid ]
+.RB [ \-z
+.IR fontsize ]
 .RB [[ \-e ]
 .IR command
 .RI [ arguments ...]]
@@ -30,6 +34,8 @@ st \- simple terminal
 .RB [ \-aiv ]
 .RB [ \-c
 .IR class ]
+.RB [ \-d
+.IR path ]
 .RB [ \-f
 .IR font ]
 .RB [ \-g
@@ -44,6 +50,8 @@ st \- simple terminal
 .IR title ]
 .RB [ \-w
 .IR windowid ]
+.RB [ \-z
+.IR fontsize ]
 .RB \-l
 .IR line
 .RI [ stty_args ...]
@@ -57,6 +65,10 @@ disable alternate screens in terminal
 .TP
 .BI \-c " class"
 defines the window class (default $TERM).
+.TP
+.BI \-d " path"
+changes the working directory to
+.IR path .
 .TP
 .BI \-f " font"
 defines the
@@ -90,6 +102,10 @@ defines the window title (default 'st').
 .BI \-w " windowid"
 embeds st within the window identified by
 .I windowid
+.TP
+.BI \-z " fontsize"
+sets the default fontsize to
+.I fontsize
 .TP
 .BI \-l " line"
 use a tty

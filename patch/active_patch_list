@@ -11,3 +11,4 @@
 |A  ./patch/main/st-ligatures-alpha-boxdraw-scrollback-20200430-0.8.3.diff
 |A  ./patch/main/st-newterm-0.8.2.diff
 |A  ./patch/main/st-common_st.h.diff
+|A  ./patch/main/st-workingdir_defaultfontsize.diff
