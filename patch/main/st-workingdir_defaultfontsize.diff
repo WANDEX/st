@@ -1,0 +1,133 @@
+patches combined into one diff:
+st-workingdir-20200317-51e19ea.diff
+st-defaultfontsize-20210225-4ef0cbd.diff
+
+diff -up ../st-0.8.4/st.1 ./st.1
+--- ../st-0.8.4/st.1	2020-06-19 12:29:45.000000000 +0300
++++ ./st.1	2021-06-30 16:09:51.873214916 +0300
+@@ -6,6 +6,8 @@ st \- simple terminal
+ .RB [ \-aiv ]
+ .RB [ \-c
+ .IR class ]
++.RB [ \-d
++.IR path ]
+ .RB [ \-f
+ .IR font ]
+ .RB [ \-g
+@@ -22,6 +22,8 @@ st \- simple terminal
+ .IR line ]
+ .RB [ \-w
+ .IR windowid ]
++.RB [ \-z
++.IR fontsize ]
+ .RB [[ \-e ]
+ .IR command
+ .RI [ arguments ...]]
+@@ -30,6 +32,8 @@ st \- simple terminal
+ .RB [ \-aiv ]
+ .RB [ \-c
+ .IR class ]
++.RB [ \-d
++.IR path ]
+ .RB [ \-f
+ .IR font ]
+ .RB [ \-g
+@@ -44,6 +46,8 @@ st \- simple terminal
+ .IR title ]
+ .RB [ \-w
+ .IR windowid ]
++.RB [ \-z
++.IR fontsize ]
+ .RB \-l
+ .IR line
+ .RI [ stty_args ...]
+@@ -58,6 +62,10 @@ disable alternate screens in terminal
+ .BI \-c " class"
+ defines the window class (default $TERM).
+ .TP
++.BI \-d " path"
++changes the working directory to
++.IR path .
++.TP
+ .BI \-f " font"
+ defines the
+ .I font
+@@ -91,6 +95,10 @@ defines the window title (default 'st').
+ embeds st within the window identified by
+ .I windowid
+ .TP
++.BI \-z " fontsize"
++sets the default fontsize to
++.I fontsize
++.TP
+ .BI \-l " line"
+ use a tty
+ .I line
+diff -up ../st-0.8.4/x.c ./x.c
+--- ../st-0.8.4/x.c	2020-06-19 12:29:45.000000000 +0300
++++ ./x.c	2021-06-30 16:09:51.873214916 +0300
+@@ -4,6 +4,7 @@
+ #include <limits.h>
+ #include <locale.h>
+ #include <signal.h>
++#include <stdlib.h>
+ #include <sys/select.h>
+ #include <time.h>
+ #include <unistd.h>
+@@ -251,6 +251,7 @@ static char *opt_io    = NULL;
+ static char *opt_line  = NULL;
+ static char *opt_name  = NULL;
+ static char *opt_title = NULL;
++static char *opt_dir   = NULL;
+ 
+ static int oldbutton = 3; /* button event on startup: 3 = release */
+ 
+@@ -1114,7 +1115,7 @@ xinit(int cols, int rows)
+ 		die("could not init fontconfig.\n");
+ 
+ 	usedfont = (opt_font == NULL)? font : opt_font;
+-	xloadfonts(usedfont, 0);
++	xloadfonts(usedfont, defaultfontsize);
+ 
+ 	/* colors */
+ 	xw.cmap = XDefaultColormap(xw.dpy, xw.scr);
+@@ -1967,12 +1968,12 @@ run(void)
+ void
+ usage(void)
+ {
+-	die("usage: %s [-aiv] [-c class] [-f font] [-g geometry]"
+-	    " [-n name] [-o file]\n"
++	die("usage: %s [-aiv] [-c class] [-d path] [-f font]"
++	    " [-g geometry] [-n name] [-o file]\n"
+ 	    "          [-T title] [-t title] [-w windowid]"
+ 	    " [[-e] command [args ...]]\n"
+-	    "       %s [-aiv] [-c class] [-f font] [-g geometry]"
+-	    " [-n name] [-o file]\n"
++	    "       %s [-aiv] [-c class] [-d path] [-f font]"
++	    " [-g geometry] [-n name] [-o file]\n"
+ 	    "          [-T title] [-t title] [-w windowid] -l line"
+ 	    " [stty_args ...]\n", argv0, argv0);
+ }
+@@ -2024,6 +2025,14 @@ main(int argc, char *argv[])
+ 	case 'v':
+ 		die("%s " VERSION "\n", argv0);
+ 		break;
++	case 'd':
++		opt_dir = EARGF(usage());
++		break;
++	case 'z':
++		defaultfontsize = strtod(EARGF(usage()), NULL);
++		if (!(defaultfontsize > 0))
++			usage();
++		break;
+ 	default:
+ 		usage();
+ 	} ARGEND;
+@@ -2043,6 +2047,7 @@ run:
+ 	xinit(cols, rows);
+ 	xsetenv();
+ 	selinit();
++	chdir(opt_dir);
+ 	run();
+ 
+ 	return 0;
