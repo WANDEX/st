@@ -1,3 +1,9 @@
+contains common st.h hunks from patches:
+st-externalpipe-0.8.4.diff
+st-scrollback-20210507-4536f46.diff
+st-focus-20200731-43a395a.diff
+st-boxdraw_v2-0.8.3.diff
+
 diff -up ../st-0.8.4/st.h ./st.h
 --- ../st-0.8.4/st.h	2020-06-19 12:29:45.000000000 +0300
 +++ ./st.h	2021-06-29 16:02:21.653740131 +0300
