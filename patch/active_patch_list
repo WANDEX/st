@@ -1,5 +1,4 @@
 # ignores data after # character (comment string)
-|A  ./patch/main/st-anysize-20201003-407a3d0.diff
 |A  ./patch/main/st-bold-is-not-bright-20190127-3be4cf1.diff
 |A  ./patch/main/st-font2-20190416-ba72400.diff
 |A  ./patch/main/st-focus-20200731-43a395a.diff
