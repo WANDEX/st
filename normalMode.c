@@ -11,7 +11,7 @@ extern unsigned int bg[], fg, currentBg, highlightBg, highlightFg, amountNmKeys;
 typedef struct { int p[3]; } Pos;
 
 typedef enum {visual='v', visualLine='V', yank = 'y'} Op;
-typedef enum {infix_none=0, infix_i='i', infix_a='a'} Infix;
+typedef enum {infix_none=0, infix_i='k', infix_a='a'} Infix;
 typedef enum {fw='/', bw='?'} Search;
 struct NormalModeState {
 	struct OperationState { Op op; Infix infix; } cmd;
@@ -89,10 +89,10 @@ static ExitState expandExpression(char l) { //    ({ =>)       l  ?  {  \n | l |
 	int a=state.cmd.infix==infix_a, yank=state.cmd.op=='y', lc=tolower(l), found=1;
 	state.cmd.infix = infix_none;
 	if(!yank && state.cmd.op!=visual && state.cmd.op!=visualLine) return failed;
-	char mot[11] = {'l', 0, 'b', 0, 0, 'v', 0, 'e', 0, 0, (char)(yank ? 'y' : 0)};
+	char mot[11] = {'i', 0, 'b', 0, 0, 'v', 0, 'e', 0, 0, (char)(yank ? 'y' : 0)};
 	if (lc == 'w') mot[2] = (char) ('b' - lc + l), mot[7] = (char) ((a ? 'w' : 'e') - lc + l), mot[9]=(char)(a?'h':0);
 	else {
-		mot[1]='?', mot[3]=mot[8]='\n', mot[6]='/', mot[4]=(char)(a?0:'l'), mot[9]=(char)(a?0:'h');
+		mot[1]='?', mot[3]=mot[8]='\n', mot[6]='/', mot[4]=(char)(a?0:'i'), mot[9]=(char)(a?0:'h');
 		for (int i=found=0; !found && i < 6; ++i)
 			if ((found=contains(l,braces[i],2))) mot[2]=braces[i][0], mot[7]=braces[i][1];
 	}
@@ -105,17 +105,15 @@ static ExitState expandExpression(char l) { //    ({ =>)       l  ?  {  \n | l |
 
 ExitState executeMotion(char const cs, KeySym const *const ks) {
 	state.m.c = state.m.c < 1u ? 1u : state.m.c;
-	if      (ks && *ks == XK_d) historyMove(0, 0, term.row / 2);
-	else if (ks && *ks == XK_u) historyMove(0, 0, -term.row / 2);
-	else if (ks && *ks == XK_f) historyMove(0, 0, term.row-1+(term.c.y=0));
+	if      (ks && *ks == XK_f) historyMove(0, 0, term.row-1+(term.c.y=0));
 	else if (ks && *ks == XK_b) historyMove(0, 0, -(term.c.y=term.row-1));
 	else if (ks && *ks == XK_h) overlay = !overlay;
-	else if (cs == 'K') historyMove(0, 0, -(int)state.m.c);
-	else if (cs == 'J') historyMove(0, 0,  (int)state.m.c);
-	else if (cs == 'k') historyMove(0, -(int)state.m.c, 0);
-	else if (cs == 'j') historyMove(0,  (int)state.m.c, 0);
+	else if (cs == 'N') historyMove(0, 0, term.row);
+	else if (cs == 'E') historyMove(0, 0, -term.row);
+	else if (cs == 'n') historyMove(0,  (int)state.m.c, 0);
+	else if (cs == 'e') historyMove(0, -(int)state.m.c, 0);
 	else if (cs == 'h') historyMove(-(int)state.m.c, 0, 0);
-	else if (cs == 'l') historyMove( (int)state.m.c, 0, 0);
+	else if (cs == 'i') historyMove( (int)state.m.c, 0, 0);
 	else if (cs == 'H') term.c.y = 0;
 	else if (cs == 'M') term.c.y = term.bot / 2;
 	else if (cs == 'L') term.c.y = term.bot;
@@ -126,8 +124,8 @@ ExitState executeMotion(char const cs, KeySym const *const ks) {
 	} else if (cs == '0') term.c.x = 0;
 	else if (cs == '$') term.c.x = term.col-1;
 	else if (cs == 't') sel.type = sel.type==SEL_REGULAR ? SEL_RECTANGULAR : SEL_REGULAR;
-	else if (cs == 'n' || cs == 'N') {
-		int const d = ((cs=='N')!=(state.m.search==bw))?-1:1;
+	else if (cs == 'j' || cs == 'J') {
+		int const d = ((cs=='J')!=(state.m.search==bw))?-1:1;
 		for (uint32_t i = state.m.c; i && findString(d, 0); --i);
 	} else if (contains(cs, "wWeEbB", 6)) {
 		int const low=cs<=90, off=tolower(cs)!='w', sgn=(tolower(cs)=='b')?-1:1;
@@ -154,7 +152,7 @@ ExitState kPressHist(char const *cs, size_t len, int ctrl, KeySym const *kSym) {
 	          prevAltToggle=altToggle, prevOverlay=overlay;
 	int const noOp=!state.cmd.op&&!state.cmd.infix, num=len==1&&BETWEEN(cs[0],48,57),
 	          esc=kSym&&*kSym==XK_Escape, ret=(kSym&&*kSym==XK_Return)||(len==1&&cs[0]=='\n'),
-	          quantifier=num&&(cs[0]!='0'||state.m.c), ins=!search &&noOp &&len &&cs[0]=='i';
+	          quantifier=num&&(cs[0]!='0'||state.m.c), ins=!search &&noOp &&len &&cs[0]=='k';
 	exited = 0;
 	ExitState result = success;
 	if (esc || ret || ins) { result = exitMotion, len = 0;
