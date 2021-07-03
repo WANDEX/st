@@ -176,13 +176,13 @@ static unsigned int cols = 80;
 static unsigned int rows = 24;
 
 /*
- * st-history / st-vim-browse
+ * st-history / st-vim-browse (333 -> transparent bg)
  */
-unsigned int const currentBg = 6, buffSize = 2048;
+unsigned int const currentBg = 0, buffSize = 2048;
 /// Enable double / triple click yanking / selection of word / line.
 int const mouseYank = 1, mouseSelect = 0;
 /// [Vim Browse] Colors for search results currently on screen.
-unsigned int const highlightBg = 160, highlightFg = 15;
+unsigned int const highlightBg = 110, highlightFg = 0;
 char const wDelS[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~", wDelL[] = " \t";
 char *nmKeys [] = {              ///< Shortcusts executed in normal mode
   "R/Building\nN", "r/Building\n", "X/juli@machine\nN", "x/juli@machine\n",
