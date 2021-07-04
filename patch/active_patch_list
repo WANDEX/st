@@ -5,10 +5,7 @@
 |A  ./patch/main/st-focus-20200731-43a395a.diff
 |A  ./patch/main/st-xresources-20200604-9ba7ecf.diff
 |A  ./patch/main/st-boxdraw_v2-0.8.3.diff
-|A  ./patch/main/st-scrollback-20210507-4536f46.diff
 |A  ./patch/main/st-externalpipe-0.8.4.diff
-|A  ./patch/main/st-externalpipe-eternal-0.8.3.diff
-|A  ./patch/main/st-ligatures-alpha-boxdraw-scrollback-20200430-0.8.3.diff
 |A  ./patch/main/st-newterm-0.8.2.diff
 |A  ./patch/main/st-common_st.h.diff
 |A  ./patch/main/st-workingdir_defaultfontsize.diff
