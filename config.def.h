@@ -176,25 +176,6 @@ static unsigned int cols = 80;
 static unsigned int rows = 24;
 
 /*
- * st-history / st-vim-browse (333 -> transparent bg)
- */
-unsigned int const currentBg = 0, buffSize = 2048;
-/// Enable double / triple click yanking / selection of word / line.
-int const mouseYank = 1, mouseSelect = 0;
-/// [Vim Browse] Colors for search results currently on screen.
-unsigned int const highlightBg = 110, highlightFg = 0;
-char const wDelS[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~", wDelL[] = " \t";
-char *nmKeys [] = {              ///< Shortcusts executed in normal mode
-  "R/Building\nN", "r/Building\n", "X/juli@machine\nN", "x/juli@machine\n",
-  "Q?[Leaving vim, starting execution]\n","F/: error:\nN", "f/: error:\n", "DQf"
-};
-unsigned int const amountNmKeys = sizeof(nmKeys) / sizeof(*nmKeys);
-/// Style of the {command, search} string shown in the right corner (y,v,V,/)
-Glyph styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 7, 16};
-Glyph style[] = {{' ',ATTR_ITALIC|ATTR_FAINT,15,16}, {' ',ATTR_ITALIC,232,11},
-                 {' ', ATTR_ITALIC, 232, 4}, {' ', ATTR_ITALIC, 232, 12}};
-
-/*
  * Default colour and shape of the mouse cursor
  */
 static unsigned int mouseshape = XC_xterm;
@@ -273,7 +254,6 @@ static MouseShortcut mshortcuts[] = {
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
-	{ MODKEY,               XK_a,           normalMode,     {.i =  0} },
 	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },

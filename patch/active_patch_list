@@ -13,5 +13,3 @@
 |A  ./patch/main/st-common_st.h.diff
 |A  ./patch/main/st-workingdir_defaultfontsize.diff
 |A  ./patch/main/st-config.diff
-|A  ./patch/main/st-vim_browse_nMutils.diff
-|A  ./patch/main/st-vim_browse_full_20210425.diff
