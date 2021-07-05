@@ -1,25 +1,3 @@
-diff -up ../st-0.8.4/config.def.h ./config.def.h
---- ../st-0.8.4/config.def.h	2020-06-19 12:29:45.000000000 +0300
-+++ ./config.def.h	2021-06-29 15:52:19.624674147 +0300
-@@ -68,6 +68,18 @@ static unsigned int blinktimeout = 800;
- static unsigned int cursorthickness = 2;
- 
- /*
-+ * 1: render most of the lines/blocks characters without using the font for
-+ *    perfect alignment between cells (U2500 - U259F except dashes/diagonals).
-+ *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
-+ * 0: disable (render all U25XX glyphs normally from the font).
-+ */
-+const int boxdraw = 0;
-+const int boxdraw_bold = 0;
-+
-+/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
-+const int boxdraw_braille = 0;
-+
-+/*
-  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
-  * it
-  */
 diff -up ../st-0.8.4/Makefile ./Makefile
 --- ../st-0.8.4/Makefile	2021-06-29 15:34:17.390361056 +0300
 +++ ./Makefile	2021-06-29 15:52:19.624674147 +0300
