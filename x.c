@@ -75,6 +75,9 @@ static void zoomabs(const Arg *);
 static void zoomreset(const Arg *);
 static void ttysend(const Arg *);
 
+#include "patch/include/st/include.h"
+#include "patch/include/x/include.h"
+
 /* config.h for applying patches and the configuration. */
 #include "config.h"
 
@@ -276,6 +279,8 @@ static char *opt_dir   = NULL;
 static int focused = 0;
 
 static int oldbutton = 3; /* button event on startup: 3 = release */
+
+#include "patch/include/x/include.c"
 
 void
 clipcopy(const Arg *dummy)

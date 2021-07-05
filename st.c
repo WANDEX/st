@@ -231,6 +231,8 @@ static uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
 static Rune utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
 static Rune utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
 
+#include "patch/include/st/include.h"
+
 ssize_t
 xwrite(int fd, const char *s, size_t len)
 {
@@ -2644,6 +2646,8 @@ drawregion(int x1, int y1, int x2, int y2)
 		xdrawline(term.line[y], x1, y, x2);
 	}
 }
+
+#include "patch/include/st/include.c"
 
 void
 draw(void)
