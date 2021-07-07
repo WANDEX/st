@@ -9,3 +9,4 @@
 |A  ./patch/main/st-common_st.h.diff
 |A  ./patch/main/st-workingdir_defaultfontsize.diff
 |A  ./patch/main/st-config.diff
+|A  ./patch/main/st-vim_browse_new_full_20210425.diff
