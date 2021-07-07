@@ -40,5 +40,10 @@ static Shortcut shortcuts[] = {
 	{ TERMMODC,             XK_L,           zoom,           {.f = -4} },
 	{ TERMMODC,             XK_H,           zoomreset,      {.f =  0} },
 	{ TERMMOD,              XK_Return,      newterm,        {.i =  0} },
+	{ MODKEY,               XK_n,           historyShiftY,  {.i =  1} },
+	{ MODKEY,               XK_e,           historyShiftY,  {.i = -1} },
+	{ TERMMOD,              XK_N,           historyPageY,   {.i =  1} },
+	{ TERMMOD,              XK_E,           historyPageY,   {.i = -1} },
+	{ MODKEY,               XK_k,           historyQuit,    {.i =  0} },
 	{ MODKEY,               XK_a,           normalMode,     {.i =  0} },
 };
