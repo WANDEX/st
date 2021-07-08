@@ -14,16 +14,9 @@
 - [workingdir](https://st.suckless.org/patches/workingdir/)
 - [xresources](https://st.suckless.org/patches/xresources/)
 
-###### this patch is the reason `libxft-bgra` is required!
-st-fix_color_fonts.diff - support utf-8 colored emoji characters in fonts.
-
 ## Installation
 
 After making any config changes that you want, but `make`, `sudo make install` it.
-
-###### You must have `libxft-bgra` installed until the libxft upstream is fixed.
-
-This build of st does not block color emoji in the fonts, so you must install [libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra/) from the AUR, which fixes a libxft color emoji rendering problem, otherwise st will crash upon trying to render one. Hopefully this fix will be in all libxft soon enough.
 
 ## Configuration
 
@@ -56,6 +49,16 @@ The files will revert to their original state, without failed hunks.
 
 Do not forget to remove from **include.c & include.h** patch specific files for patches that you are reversed,\
 and update config files in `patch/include/config/`, as they are not affected by **.diff** files.
+
+## Notes on Emojis and Special Characters
+
+If st crashes when viewing emojis, install
+[libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra/) from the AUR.
+
+Note that some special characters may appear truncated if too wide. You might
+want to manually set your prefered emoji/special character font to a lower size
+in the `config.h` file to avoid this. By default, JoyPixels is used at a
+smaller size than the usual text.
 
 ##### [The order of applying a set of patches - from the first to the last.](https://github.com/WANDEX/st/blob/master/patch/active_patch_list)
 
