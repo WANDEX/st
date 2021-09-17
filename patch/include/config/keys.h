@@ -3,6 +3,9 @@
 #define TERMMOD (Mod1Mask|ShiftMask)
 #define TERMMODC (Mod1Mask|ShiftMask|ControlMask)
 
+#define CTRLMOD (ControlMask|Mod1Mask)
+#define CSHIFT (ControlMask|ShiftMask)
+
 /*
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
@@ -41,10 +44,10 @@ static Shortcut shortcuts[] = {
 	{ TERMMODC,             XK_H,           zoomreset,      {.f =  0} },
 	{ MODKEY,               XK_Return,      newterm,        {.i =  0} },
 	{ TERMMOD,              XK_Return,      newtermr,       {.i =  0} },
-	{ MODKEY,               XK_n,           historyShiftY,  {.i =  1} },
-	{ MODKEY,               XK_e,           historyShiftY,  {.i = -1} },
-	{ TERMMOD,              XK_N,           historyPageY,   {.i =  1} },
-	{ TERMMOD,              XK_E,           historyPageY,   {.i = -1} },
+	{ CTRLMOD,              XK_n,           historyShiftY,  {.i =  1} },
+	{ CTRLMOD,              XK_e,           historyShiftY,  {.i = -1} },
+	{ CSHIFT,               XK_N,           historyPageY,   {.i =  1} },
+	{ CSHIFT,               XK_E,           historyPageY,   {.i = -1} },
 	{ MODKEY,               XK_k,           historyQuit,    {.i =  0} },
 	{ MODKEY,               XK_a,           normalMode,     {.i =  0} },
 };
