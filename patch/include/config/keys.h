@@ -49,6 +49,5 @@ static Shortcut shortcuts[] = {
 	{ CSHIFT,               XK_N,           historyPageY,   {.i =  1} },
 	{ CSHIFT,               XK_E,           historyPageY,   {.i = -1} },
 	{ MODKEY,               XK_k,           historyQuit,    {.i =  0} },
-	{ ControlMask,          XK_l,           historyQuit,    {.i =  0} },
 	{ MODKEY,               XK_a,           normalMode,     {.i =  0} },
 };
