@@ -506,7 +506,7 @@ bpress(XEvent *e)
 		int const tripleClick = TIMEDIFF(now, xsel.tclick2) <= tripleclicktimeout,
 		doubleClick = TIMEDIFF(now, xsel.tclick1) <= doubleclicktimeout;
 		if ((mouseYank || mouseSelect) && (tripleClick || doubleClick)) {
-			if (!IS_SET(MODE_NORMAL)) normalMode();
+			if (!IS_SET(MODE_NORMAL)) normalMode(NULL);
 			historyOpToggle(1, 1);
 			tmoveto(evcol(e), evrow(e));
 			if (tripleClick) {
@@ -828,7 +828,7 @@ xloadalpha(void)
 	dc.col[defaultbg].pixel |= (unsigned char)(0xff * usedAlpha) << 24;
 }
 
-void normalMode() { historyModeToggle((win.mode ^=MODE_NORMAL) & MODE_NORMAL); }
+void normalMode(const Arg *a) { historyModeToggle((win.mode ^=MODE_NORMAL) & MODE_NORMAL); }
 
 void
 xloadcols(void)
@@ -1983,8 +1983,7 @@ kpress(XEvent *ev)
 	else
 		len = XLookupString(e, buf, sizeof buf, &ksym, NULL);
 	if (IS_SET(MODE_NORMAL)) {
-		if (kPressHist(buf, len, match(ControlMask, e->state), &ksym)
-		                                      == finish) normalMode();
+		if (kPressHist(buf, len, match(ControlMask, e->state), &ksym) == finish) normalMode(NULL);
 		return;
 	}
 	/* 1. shortcuts */

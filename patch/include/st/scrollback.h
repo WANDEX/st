@@ -1,4 +1,4 @@
 /* Requires vim-browse patch! */
-void historyShiftY(Arg const *ly);
-void historyPageY(Arg const *ly);
-void historyQuit();
+void historyShiftY(const Arg *);
+void historyPageY(const Arg *);
+void historyQuit(const Arg *);

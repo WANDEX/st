@@ -688,7 +688,7 @@ diff -up ../st-0.8.4/x.c ./x.c
  	return XftColorAllocName(xw.dpy, xw.vis, xw.cmap, name, ncolor);
  }
  
-+void normalMode() { historyModeToggle((win.mode ^=MODE_NORMAL) & MODE_NORMAL); }
++void normalMode(const Arg *a) { historyModeToggle((win.mode ^=MODE_NORMAL) & MODE_NORMAL); }
 +
  void
  xloadcols(void)
@@ -714,13 +714,12 @@ diff -up ../st-0.8.4/x.c ./x.c
  		if (new.mode == ATTR_WDUMMY)
  			continue;
  		if (selected(x, y1))
-@@ -1800,6 +1822,11 @@ kpress(XEvent *ev)
+@@ -1800,6 +1821,10 @@ kpress(XEvent *ev)
  		len = XmbLookupString(xw.ime.xic, e, buf, sizeof buf, &ksym, &status);
  	else
  		len = XLookupString(e, buf, sizeof buf, &ksym, NULL);
 +	if (IS_SET(MODE_NORMAL)) {
-+		if (kPressHist(buf, len, match(ControlMask, e->state), &ksym)
-+		                                      == finish) normalMode();
++		if (kPressHist(buf, len, match(ControlMask, e->state), &ksym) == finish) normalMode(NULL);
 +		return;
 +	}
  	/* 1. shortcuts */

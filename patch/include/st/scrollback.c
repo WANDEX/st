@@ -1,13 +1,13 @@
 /* Requires vim-browse patch! */
-void historyQuit() { historyModeToggle(0); }
+void historyQuit(const Arg *a) { historyModeToggle(0); }
 
-void historyShiftY(Arg const *y) {
+void historyShiftY(const Arg *y) {
 	if (!histMode) historyModeToggle(1);
 	historyMove(0, 0, y->i);
 	if (insertOff == histOff) historyModeToggle(0);
 }
 
-void historyPageY(Arg const *y) {
+void historyPageY(const Arg *y) {
 	int n = y->i;
 	n = term.row * n;
 	if (!histMode) historyModeToggle(1);
